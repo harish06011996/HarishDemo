@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Birthday Surprise ❤️</title>
@@ -12,14 +11,14 @@
 
 body{
 margin:0;
-overflow-x:hidden;
 font-family:Arial;
+text-align:center;
+color:white;
 background-size:cover;
 background-position:center;
 transition:background-image 2s;
+overflow-x:hidden;
 }
-
-/* overlay */
 
 body::before{
 content:"";
@@ -28,30 +27,42 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.35);
+background:rgba(0,0,0,0.45);
 z-index:-1;
+}
+
+/* heading */
+
+h1{
+font-size:55px;
+margin-top:80px;
+}
+
+.message{
+font-size:20px;
+width:80%;
+max-width:700px;
+margin:auto;
+margin-top:20px;
+line-height:1.6;
 }
 
 /* countdown */
 
 .countdown{
-position:fixed;
-top:20px;
-left:50%;
-transform:translateX(-50%);
-color:white;
-font-size:28px;
-background:rgba(0,0,0,0.4);
-padding:10px 20px;
+margin-top:30px;
+font-size:30px;
+background:rgba(255,255,255,0.2);
+display:inline-block;
+padding:10px 25px;
 border-radius:10px;
 }
 
 /* gift */
 
 .gift{
-font-size:100px;
-text-align:center;
-margin-top:40vh;
+font-size:90px;
+margin-top:50px;
 cursor:pointer;
 }
 
@@ -61,7 +72,7 @@ cursor:pointer;
 display:none;
 }
 
-/* stories */
+/* instagram story */
 
 .story{
 width:250px;
@@ -93,9 +104,9 @@ animation:rotate 20s linear infinite;
 position:absolute;
 width:200px;
 height:200px;
-object-fit:cover;
 left:50px;
 top:50px;
+object-fit:cover;
 }
 
 .gallery img:nth-child(1){transform:rotateY(0deg) translateZ(200px);}
@@ -112,37 +123,16 @@ to{transform:rotateY(360deg)}
 
 .heart{
 position:fixed;
-font-size:20px;
+font-size:18px;
 pointer-events:none;
 }
 
-/* scroll animation */
-
-.fade{
-opacity:0;
-transform:translateY(50px);
-transition:1s;
-}
-
-.fade.show{
-opacity:1;
-transform:translateY(0);
-}
-
-/* secret message */
+/* secret */
 
 #secret{
 display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:white;
-color:black;
-padding:40px;
-border-radius:10px;
-font-size:26px;
-text-align:center;
+font-size:28px;
+margin-top:40px;
 }
 
 /* confetti */
@@ -162,17 +152,26 @@ pointer-events:none;
 
 <canvas id="confetti"></canvas>
 
+<h1>🎂 Happy Birthday Pookie ❤️</h1>
+
+<div class="message">
+On this beautiful day, I just want you to know how special you are to me.  
+Your smile brightens my life, and your presence makes every moment magical.  
+May your birthday be filled with love, laughter, and unforgettable memories.  
+You deserve all the happiness in the world today and always. 💖
+</div>
+
 <div class="countdown" id="timer"></div>
 
 <div class="gift" onclick="openGift()">🎁</div>
 
 <div id="content" class="hidden">
 
-<div class="story fade">
+<div class="story">
 <img id="storyImg">
 </div>
 
-<div class="gallery fade">
+<div class="gallery">
 
 <img src="photo1.jpg">
 <img src="photo2.jpg">
@@ -181,16 +180,16 @@ pointer-events:none;
 
 </div>
 
-<audio autoplay loop>
-<source src="music.mp3" type="audio/mpeg">
-</audio>
-
 </div>
 
 <div id="secret">
-Happy Birthday ❤️  
-You are the most special person in my life.
+🎉 Happy Birthday ❤️  
+You are the most beautiful part of my life.
 </div>
+
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
@@ -203,11 +202,13 @@ let b=0
 function changeBG(){
 
 document.body.style.backgroundImage=`url(${bg[b]})`
+
 b=(b+1)%bg.length
 
 }
 
 setInterval(changeBG,5000)
+
 changeBG()
 
 /* COUNTDOWN */
@@ -217,6 +218,7 @@ const birthday=new Date("March 18, 2026 00:00:00").getTime()
 setInterval(()=>{
 
 let now=new Date().getTime()
+
 let diff=birthday-now
 
 let d=Math.floor(diff/(1000*60*60*24))
@@ -224,14 +226,16 @@ let h=Math.floor((diff%(1000*60*60*24))/(1000*60*60))
 let m=Math.floor((diff%(1000*60*60))/(1000*60))
 let s=Math.floor((diff%(1000*60))/1000)
 
-document.getElementById("timer").innerHTML=
+document.getElementById("timer").innerHTML =
 d+"d "+h+"h "+m+"m "+s+"s"
 
 if(diff<=0){
 
-document.getElementById("timer").innerHTML="🎉"
-startConfetti()
+document.getElementById("timer").innerHTML="🎉 Happy Birthday 🎂"
+
 document.getElementById("secret").style.display="block"
+
+startConfetti()
 
 }
 
@@ -242,11 +246,12 @@ document.getElementById("secret").style.display="block"
 function openGift(){
 
 document.querySelector(".gift").style.display="none"
+
 document.getElementById("content").classList.remove("hidden")
 
 }
 
-/* STORY */
+/* STORY SLIDESHOW */
 
 const stories=["story1.jpg","story2.jpg","story3.jpg"]
 
@@ -255,53 +260,39 @@ let i=0
 setInterval(()=>{
 
 document.getElementById("storyImg").src=stories[i]
+
 i=(i+1)%stories.length
 
 },3000)
 
-/* HEART FOLLOW MOUSE */
+/* HEART PARTICLES */
 
 document.addEventListener("mousemove",e=>{
 
 let heart=document.createElement("div")
+
 heart.className="heart"
+
 heart.innerHTML="❤️"
 
 heart.style.left=e.clientX+"px"
+
 heart.style.top=e.clientY+"px"
 
 document.body.appendChild(heart)
 
-setTimeout(()=>heart.remove(),800)
-
-})
-
-/* SCROLL ANIMATION */
-
-const faders=document.querySelectorAll(".fade")
-
-window.addEventListener("scroll",()=>{
-
-faders.forEach(el=>{
-
-const top=el.getBoundingClientRect().top
-
-if(top<window.innerHeight-100){
-
-el.classList.add("show")
-
-}
-
-})
+setTimeout(()=>heart.remove(),700)
 
 })
 
 /* CONFETTI */
 
 const canvas=document.getElementById("confetti")
+
 const ctx=canvas.getContext("2d")
 
 canvas.width=window.innerWidth
+
 canvas.height=window.innerHeight
 
 let confetti=[]
@@ -311,9 +302,13 @@ function startConfetti(){
 for(let i=0;i<200;i++){
 
 confetti.push({
+
 x:Math.random()*canvas.width,
+
 y:Math.random()*canvas.height,
+
 r:Math.random()*6
+
 })
 
 }
@@ -329,7 +324,9 @@ ctx.fillStyle="yellow"
 confetti.forEach(c=>{
 
 ctx.beginPath()
+
 ctx.arc(c.x,c.y,c.r,0,Math.PI*2)
+
 ctx.fill()
 
 c.y+=2
@@ -347,4 +344,5 @@ draw()
 </script>
 
 </body>
+
 </html>
