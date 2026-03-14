@@ -127,6 +127,26 @@ font-size:18px;
 pointer-events:none;
 }
 
+  .countdown{
+margin-top:30px;
+font-size:26px;
+background:rgba(255,255,255,0.25);
+display:inline-block;
+padding:15px 30px;
+border-radius:12px;
+backdrop-filter:blur(10px);
+}
+
+.countdown div:first-child{
+font-size:20px;
+margin-bottom:5px;
+}
+
+#timer{
+font-size:32px;
+font-weight:bold;
+}
+
 /* secret */
 
 #secret{
@@ -161,8 +181,11 @@ May your birthday be filled with love, laughter, and unforgettable memories.
 You deserve all the happiness in the world today and always. 💖
 </div>
 
-<div class="countdown" id="timer"></div>
-
+<div class="countdown">
+<div>🎉 Countdown to Your Birthday (18 March) 🎉</div>
+<div id="timer"></div>
+</div>
+  
 <div class="gift" onclick="openGift()">🎁</div>
 
 <div id="content" class="hidden">
