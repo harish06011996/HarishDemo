@@ -4,7 +4,6 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Birthday Surprise ❤️</title>
 
 <style>
@@ -31,39 +30,44 @@ background:rgba(0,0,0,0.45);
 z-index:-1;
 }
 
-/* heading */
+/* intro */
 
-h1{
-font-size:55px;
-margin-top:80px;
+#intro{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 }
 
-.message{
-font-size:20px;
-width:80%;
-max-width:700px;
-margin:auto;
+#startBtn{
+padding:15px 35px;
+font-size:18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+background:#ff4d6d;
+color:white;
 margin-top:20px;
-line-height:1.6;
 }
 
 /* countdown */
 
 .countdown{
 margin-top:30px;
-font-size:30px;
-background:rgba(255,255,255,0.2);
+font-size:28px;
+background:rgba(255,255,255,0.25);
 display:inline-block;
-padding:10px 25px;
-border-radius:10px;
+padding:15px 30px;
+border-radius:15px;
 }
 
 /* gift */
 
 .gift{
 font-size:90px;
-margin-top:50px;
 cursor:pointer;
+margin-top:30px;
 }
 
 /* hidden */
@@ -72,7 +76,7 @@ cursor:pointer;
 display:none;
 }
 
-/* instagram story */
+/* story */
 
 .story{
 width:250px;
@@ -119,32 +123,22 @@ from{transform:rotateY(0deg)}
 to{transform:rotateY(360deg)}
 }
 
+/* message */
+
+.message{
+font-size:22px;
+max-width:700px;
+margin:auto;
+margin-top:20px;
+line-height:1.6;
+}
+
 /* hearts */
 
 .heart{
 position:fixed;
 font-size:18px;
 pointer-events:none;
-}
-
-  .countdown{
-margin-top:30px;
-font-size:26px;
-background:rgba(255,255,255,0.25);
-display:inline-block;
-padding:15px 30px;
-border-radius:12px;
-backdrop-filter:blur(10px);
-}
-
-.countdown div:first-child{
-font-size:20px;
-margin-bottom:5px;
-}
-
-#timer{
-font-size:32px;
-font-weight:bold;
 }
 
 /* secret */
@@ -172,22 +166,47 @@ pointer-events:none;
 
 <canvas id="confetti"></canvas>
 
-<h1>🎂 Happy Birthday Pookie ❤️</h1>
+<!-- INTRO -->
 
-<div class="message">
-I know you’re going through a lot these days, balancing family responsibilities and personal challenges. Despite everything, you’ve remained strong and handled it with great courage, and I truly admire that strength in you.
+<div id="intro">
 
-I hope that with your birthday, all these difficulties begin to fade away and brighter days lie ahead. Wishing you a very happy birthday, good health, and all the happiness and success you truly deserve. 💖
+<h1>💖 I Made Something Special For You 💖</h1>
+
+<button id="startBtn" onclick="start()">Open Your Surprise 🎁</button>
+
 </div>
+
+<!-- MAIN PAGE -->
+
+<div id="main" class="hidden">
+
+<h1>🎉 Countdown to Your Birthday (18 March) 🎉</h1>
 
 <div class="countdown">
-<div>🎉 Countdown to Your Birthday (18 March) 🎉</div>
 <div id="timer"></div>
 </div>
-  
+
 <div class="gift" onclick="openGift()">🎁</div>
 
-<div id="content" class="hidden">
+</div>
+
+<!-- SECOND PAGE AFTER GIFT -->
+
+<div id="giftPage" class="hidden">
+
+<h1 style="font-size:60px;margin-top:60px;">
+💖 Happy Birthday Pookie ❤️
+</h1>
+
+<p class="message">
+
+Today is all about celebrating the most wonderful person in my life.  
+Your smile lights up my world and your presence makes everything better.  
+
+May this birthday bring you endless happiness, love, and beautiful memories.  
+You deserve all the joy in the universe. ❤️
+
+</p>
 
 <div class="story">
 <img id="storyImg">
@@ -202,11 +221,11 @@ I hope that with your birthday, all these difficulties begin to fade away and br
 
 </div>
 
-</div>
-
 <div id="secret">
 🎉 Happy Birthday ❤️  
 You are the most beautiful part of my life.
+</div>
+
 </div>
 
 <audio autoplay loop>
@@ -214,6 +233,13 @@ You are the most beautiful part of my life.
 </audio>
 
 <script>
+
+/* START SITE */
+
+function start(){
+document.getElementById("intro").style.display="none"
+document.getElementById("main").classList.remove("hidden")
+}
 
 /* BACKGROUND SLIDESHOW */
 
@@ -267,13 +293,13 @@ startConfetti()
 
 function openGift(){
 
-document.querySelector(".gift").style.display="none"
+document.getElementById("main").style.display="none"
 
-document.getElementById("content").classList.remove("hidden")
+document.getElementById("giftPage").classList.remove("hidden")
 
 }
 
-/* STORY SLIDESHOW */
+/* INSTAGRAM STORIES */
 
 const stories=["story1.jpg","story2.jpg","story3.jpg"]
 
@@ -287,7 +313,7 @@ i=(i+1)%stories.length
 
 },3000)
 
-/* HEART PARTICLES */
+/* HEART CURSOR */
 
 document.addEventListener("mousemove",e=>{
 
@@ -326,9 +352,7 @@ for(let i=0;i<200;i++){
 confetti.push({
 
 x:Math.random()*canvas.width,
-
 y:Math.random()*canvas.height,
-
 r:Math.random()*6
 
 })
@@ -346,9 +370,7 @@ ctx.fillStyle="yellow"
 confetti.forEach(c=>{
 
 ctx.beginPath()
-
 ctx.arc(c.x,c.y,c.r,0,Math.PI*2)
-
 ctx.fill()
 
 c.y+=2
@@ -366,5 +388,4 @@ draw()
 </script>
 
 </body>
-
 </html>
